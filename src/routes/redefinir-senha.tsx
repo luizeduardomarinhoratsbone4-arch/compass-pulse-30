@@ -29,8 +29,14 @@ function ResetPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.length < 8) return toast.error("Use ao menos 8 caracteres.");
-    if (password !== confirm) return toast.error("As senhas não coincidem.");
+    if (password.length < 8) {
+      toast.error("Use ao menos 8 caracteres.");
+      return;
+    }
+    if (password !== confirm) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
     setBusy(true);
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
