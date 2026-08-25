@@ -168,7 +168,10 @@ function EntryDialog({
           </div>
           <div className="space-y-2">
             <Label>Categoria</Label>
-            <Select value={form.category || categories[0]} onValueChange={(v) => set("category", v)}>
+            <Select
+              value={form.category || categories[0] || ""}
+              onValueChange={(v) => set("category", v)}
+            >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
