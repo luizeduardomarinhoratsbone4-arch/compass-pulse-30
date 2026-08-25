@@ -17,6 +17,8 @@ import { Route as RecuperarSenhaRouteImport } from './routes/recuperar-senha'
 import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFinanceiroRouteImport } from './routes/_authenticated/financeiro'
+import { Route as AuthenticatedFluxoDeCaixaRouteImport } from './routes/_authenticated/fluxo-de-caixa'
 import { Route as AuthenticatedNovaEmpresaRouteImport } from './routes/_authenticated/nova-empresa'
 
 const IndexRoute = IndexRouteImport.update({
@@ -58,6 +60,17 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFinanceiroRoute = AuthenticatedFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFluxoDeCaixaRoute =
+  AuthenticatedFluxoDeCaixaRouteImport.update({
+    id: '/fluxo-de-caixa',
+    path: '/fluxo-de-caixa',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedNovaEmpresaRoute =
   AuthenticatedNovaEmpresaRouteImport.update({
     id: '/nova-empresa',
@@ -73,6 +86,8 @@ export interface FileRoutesByFullPath {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/financeiro': typeof AuthenticatedFinanceiroRoute
+  '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRoutesByTo {
@@ -83,6 +98,8 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/financeiro': typeof AuthenticatedFinanceiroRoute
+  '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRoutesById {
@@ -95,6 +112,8 @@ export interface FileRoutesById {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/financeiro': typeof AuthenticatedFinanceiroRoute
+  '/_authenticated/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/_authenticated/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRouteTypes {
@@ -107,6 +126,8 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/dashboard'
+    | '/financeiro'
+    | '/fluxo-de-caixa'
     | '/nova-empresa'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,6 +138,8 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/dashboard'
+    | '/financeiro'
+    | '/fluxo-de-caixa'
     | '/nova-empresa'
   id:
     | '__root__'
@@ -128,6 +151,8 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/_authenticated/dashboard'
+    | '/_authenticated/financeiro'
+    | '/_authenticated/fluxo-de-caixa'
     | '/_authenticated/nova-empresa'
   fileRoutesById: FileRoutesById
 }
@@ -199,6 +224,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/financeiro': {
+      id: '/_authenticated/financeiro'
+      path: '/financeiro'
+      fullPath: '/financeiro'
+      preLoaderRoute: typeof AuthenticatedFinanceiroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/fluxo-de-caixa': {
+      id: '/_authenticated/fluxo-de-caixa'
+      path: '/fluxo-de-caixa'
+      fullPath: '/fluxo-de-caixa'
+      preLoaderRoute: typeof AuthenticatedFluxoDeCaixaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/nova-empresa': {
       id: '/_authenticated/nova-empresa'
       path: '/nova-empresa'
@@ -211,11 +250,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFinanceiroRoute: typeof AuthenticatedFinanceiroRoute
+  AuthenticatedFluxoDeCaixaRoute: typeof AuthenticatedFluxoDeCaixaRoute
   AuthenticatedNovaEmpresaRoute: typeof AuthenticatedNovaEmpresaRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFinanceiroRoute: AuthenticatedFinanceiroRoute,
+  AuthenticatedFluxoDeCaixaRoute: AuthenticatedFluxoDeCaixaRoute,
   AuthenticatedNovaEmpresaRoute: AuthenticatedNovaEmpresaRoute,
 }
 
