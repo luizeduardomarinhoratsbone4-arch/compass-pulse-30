@@ -17,8 +17,10 @@ import { Route as RecuperarSenhaRouteImport } from './routes/recuperar-senha'
 import { Route as RedefinirSenhaRouteImport } from './routes/redefinir-senha'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
 import { Route as AuthenticatedFinanceiroRouteImport } from './routes/_authenticated/financeiro'
 import { Route as AuthenticatedFluxoDeCaixaRouteImport } from './routes/_authenticated/fluxo-de-caixa'
+import { Route as AuthenticatedMetasRouteImport } from './routes/_authenticated/metas'
 import { Route as AuthenticatedNovaEmpresaRouteImport } from './routes/_authenticated/nova-empresa'
 
 const IndexRoute = IndexRouteImport.update({
@@ -60,6 +62,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedEquipeRoute = AuthenticatedEquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFinanceiroRoute = AuthenticatedFinanceiroRouteImport.update({
   id: '/financeiro',
   path: '/financeiro',
@@ -71,6 +78,11 @@ const AuthenticatedFluxoDeCaixaRoute =
     path: '/fluxo-de-caixa',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedMetasRoute = AuthenticatedMetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedNovaEmpresaRoute =
   AuthenticatedNovaEmpresaRouteImport.update({
     id: '/nova-empresa',
@@ -86,8 +98,10 @@ export interface FileRoutesByFullPath {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/equipe': typeof AuthenticatedEquipeRoute
   '/financeiro': typeof AuthenticatedFinanceiroRoute
   '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
+  '/metas': typeof AuthenticatedMetasRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRoutesByTo {
@@ -98,8 +112,10 @@ export interface FileRoutesByTo {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/equipe': typeof AuthenticatedEquipeRoute
   '/financeiro': typeof AuthenticatedFinanceiroRoute
   '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
+  '/metas': typeof AuthenticatedMetasRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRoutesById {
@@ -112,8 +128,10 @@ export interface FileRoutesById {
   '/redefinir-senha': typeof RedefinirSenhaRoute
   '/termos': typeof TermosRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
   '/_authenticated/financeiro': typeof AuthenticatedFinanceiroRoute
   '/_authenticated/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
+  '/_authenticated/metas': typeof AuthenticatedMetasRoute
   '/_authenticated/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
 }
 export interface FileRouteTypes {
@@ -126,8 +144,10 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/dashboard'
+    | '/equipe'
     | '/financeiro'
     | '/fluxo-de-caixa'
+    | '/metas'
     | '/nova-empresa'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -138,8 +158,10 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/dashboard'
+    | '/equipe'
     | '/financeiro'
     | '/fluxo-de-caixa'
+    | '/metas'
     | '/nova-empresa'
   id:
     | '__root__'
@@ -151,8 +173,10 @@ export interface FileRouteTypes {
     | '/redefinir-senha'
     | '/termos'
     | '/_authenticated/dashboard'
+    | '/_authenticated/equipe'
     | '/_authenticated/financeiro'
     | '/_authenticated/fluxo-de-caixa'
+    | '/_authenticated/metas'
     | '/_authenticated/nova-empresa'
   fileRoutesById: FileRoutesById
 }
@@ -224,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/equipe': {
+      id: '/_authenticated/equipe'
+      path: '/equipe'
+      fullPath: '/equipe'
+      preLoaderRoute: typeof AuthenticatedEquipeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/financeiro': {
       id: '/_authenticated/financeiro'
       path: '/financeiro'
@@ -238,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFluxoDeCaixaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/metas': {
+      id: '/_authenticated/metas'
+      path: '/metas'
+      fullPath: '/metas'
+      preLoaderRoute: typeof AuthenticatedMetasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/nova-empresa': {
       id: '/_authenticated/nova-empresa'
       path: '/nova-empresa'
@@ -250,15 +288,19 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
   AuthenticatedFinanceiroRoute: typeof AuthenticatedFinanceiroRoute
   AuthenticatedFluxoDeCaixaRoute: typeof AuthenticatedFluxoDeCaixaRoute
+  AuthenticatedMetasRoute: typeof AuthenticatedMetasRoute
   AuthenticatedNovaEmpresaRoute: typeof AuthenticatedNovaEmpresaRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
   AuthenticatedFinanceiroRoute: AuthenticatedFinanceiroRoute,
   AuthenticatedFluxoDeCaixaRoute: AuthenticatedFluxoDeCaixaRoute,
+  AuthenticatedMetasRoute: AuthenticatedMetasRoute,
   AuthenticatedNovaEmpresaRoute: AuthenticatedNovaEmpresaRoute,
 }
 
