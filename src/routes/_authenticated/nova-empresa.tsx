@@ -54,16 +54,16 @@ function NewOrgPage() {
     setBusy(true);
     const { data, error } = await supabase.rpc("create_organization", {
       _name: form.name,
-      _trade_name: form.trade_name || null,
-      _tax_id: form.tax_id || null,
+      _trade_name: form.trade_name,
+      _tax_id: form.tax_id,
       _business_type: form.business_type,
-      _segment: form.segment || null,
-      _email: form.email || null,
-      _phone: form.phone || null,
-      _city: form.city || null,
-      _state: form.state || null,
+      _segment: form.segment,
+      _email: form.email,
+      _phone: form.phone,
+      _city: form.city,
+      _state: form.state,
       _country: form.country || "Brasil",
-      _employee_estimate: form.employee_estimate ? Number(form.employee_estimate) : null,
+      _employee_estimate: form.employee_estimate ? Number(form.employee_estimate) : 0,
     });
     setBusy(false);
     if (error || !data) {
