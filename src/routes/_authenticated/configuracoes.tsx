@@ -290,21 +290,6 @@ function SettingsPage() {
                 onChange={(e) => setInvite((i) => ({ ...i, email: e.target.value }))}
               />
             </div>
-            <div className="space-y-2">
-              <Label>Papel</Label>
-              <Select value={invite.role} onValueChange={(v) => setInvite((i) => ({ ...i, role: v }))}>
-                <SelectTrigger className="w-48">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {ROLES.map((r) => (
-                    <SelectItem key={r} value={r}>
-                      {ROLE_LABEL[r] ?? r}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
             <Button onClick={() => addMember.mutate()} disabled={addMember.isPending || !invite.email}>
               <UserPlus className="mr-2 size-4" />
               Adicionar
