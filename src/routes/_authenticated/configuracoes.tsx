@@ -319,28 +319,7 @@ function SettingsPage() {
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground">{m.profiles?.email || "—"}</TableCell>
-                  <TableCell>
-                    {canManageUsers && m.user_id !== user?.id ? (
-                      <Select
-                        value={m.role}
-                        onValueChange={(v) => void changeRole(m, v as Member["role"])}
-                      >
-                        <SelectTrigger className="w-44">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {ROLES.map((r) => (
-                            <SelectItem key={r} value={r}>
-                              {ROLE_LABEL[r] ?? r}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : (
-                      <Badge variant="outline">{ROLE_LABEL[m.role] ?? m.role}</Badge>
-                    )}
-                  </TableCell>
-                  {canManageUsers && (
+                  <TableCell className="text-muted-foreground">{m.profiles?.email || "—"}</TableCell>
                     <TableCell>
                       {m.user_id !== user?.id && (
                         <Button size="icon" variant="ghost" onClick={() => void removeMember(m)}>
