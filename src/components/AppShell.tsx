@@ -154,6 +154,23 @@ export function AppShell({
     return source.slice(0, 2).toUpperCase();
   }, [user]);
 
+  if (user && !isAllowedEmail(user.email)) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background p-6">
+        <div className="surface-card max-w-md p-8 text-center">
+          <h1 className="font-display text-xl font-semibold">Acesso restrito</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Esta conta não tem permissão para acessar a plataforma. Entre com a conta
+            autorizada da Infradata.
+          </p>
+          <Button className="mt-6" onClick={() => void signOut()}>
+            Sair
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   const sidebar = (
     <div className="flex h-full flex-col bg-sidebar">
       <div className="border-b border-sidebar-border px-3 py-4">
