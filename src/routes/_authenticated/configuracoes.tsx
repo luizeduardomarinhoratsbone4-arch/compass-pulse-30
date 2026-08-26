@@ -28,7 +28,6 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { logActivity } from "@/lib/audit";
 import { useOrg } from "@/lib/org";
-import { ROLE_LABEL } from "@/lib/permissions";
 import { useSession } from "@/lib/session";
 
 export const Route = createFileRoute("/_authenticated/configuracoes")({
@@ -55,8 +54,6 @@ type Member = {
   role: "admin" | "financeiro" | "rh" | "colaborador";
   profiles?: { full_name: string | null; email: string | null } | null;
 };
-
-const ROLES = ["admin", "financeiro", "rh", "colaborador"] as const;
 
 function SettingsPage() {
   const { orgId, org, can, refetch } = useOrg();
@@ -151,23 +148,6 @@ function SettingsPage() {
     onError: () =>
       toast.error("Usuário não encontrado. Peça para a pessoa criar a conta primeiro."),
   });
-
-  const changeRole = async (member: Member, role: Member["role"]) => {
-    const { error } = await supabase
-      .from("organization_members")
-      .update({ role, permissions: [] })
-      .eq("id", member.id);
-    if (error) {
-      toast.error("Não foi possível alterar o papel.");
-      return;
-    }
-    await supabase.rpc("default_permissions", { _role: role }).then(async ({ data }) => {
-      if (Array.isArray(data))
-        await supabase.from("organization_members").update({ permissions: data }).eq("id", member.id);
-    });
-    toast.success("Papel atualizado.");
-    void queryClient.invalidateQueries({ queryKey: ["members", orgId] });
-  };
 
   const removeMember = async (member: Member) => {
     const { error } = await supabase.from("organization_members").delete().eq("id", member.id);
