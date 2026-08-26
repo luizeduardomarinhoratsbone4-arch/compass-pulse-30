@@ -319,7 +319,7 @@ function SettingsPage() {
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground">{m.profiles?.email || "—"}</TableCell>
-                  <TableCell className="text-muted-foreground">{m.profiles?.email || "—"}</TableCell>
+                  {canManageUsers && (
                     <TableCell>
                       {m.user_id !== user?.id && (
                         <Button size="icon" variant="ghost" onClick={() => void removeMember(m)}>
