@@ -303,7 +303,7 @@ function SettingsPage() {
               <TableRow>
                 <TableHead>Nome</TableHead>
                 <TableHead>E-mail</TableHead>
-                <TableHead>Papel</TableHead>
+                
                 {canManageUsers && <TableHead className="w-16" />}
               </TableRow>
             </TableHeader>
