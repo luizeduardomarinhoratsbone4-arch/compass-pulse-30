@@ -245,29 +245,7 @@ export function AppShell({
           </button>
 
           <div className="ml-auto flex items-center gap-2">
-            {memberships.length > 1 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="max-w-[200px]">
-                    <Building2 className="mr-2 size-4 shrink-0" />
-                    <span className="truncate">{org?.name ?? "Empresa"}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Suas empresas</DropdownMenuLabel>
-                  {memberships.map((m) => (
-                    <DropdownMenuItem key={m.org_id} onSelect={() => setOrgId(m.org_id)}>
-                      {m.organizations?.name}
-                      {m.org_id === org?.id && (
-                        <Badge variant="secondary" className="ml-2">
-                          atual
-                        </Badge>
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+            <OrgSwitcher className="hidden sm:inline-flex" />
             <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="md:hidden">
               <Search className="size-5" />
             </Button>
