@@ -30,7 +30,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useOrg } from "@/lib/org";
 import { isAllowedEmail } from "@/lib/access";
@@ -38,6 +37,7 @@ import { useSession } from "@/lib/session";
 import { useTheme } from "@/lib/theme";
 import { ROLE_LABEL } from "@/lib/permissions";
 import { GlobalSearch } from "@/components/GlobalSearch";
+import { OrgSwitcher } from "@/components/OrgSwitcher";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -107,7 +107,7 @@ export function AppShell({
   children: ReactNode;
 }) {
   const { user } = useSession();
-  const { memberships, membership, org, setOrgId } = useOrg();
+  const { membership } = useOrg();
   const { theme, toggle } = useTheme();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -245,29 +245,7 @@ export function AppShell({
           </button>
 
           <div className="ml-auto flex items-center gap-2">
-            {memberships.length > 1 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="max-w-[200px]">
-                    <Building2 className="mr-2 size-4 shrink-0" />
-                    <span className="truncate">{org?.name ?? "Empresa"}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Suas empresas</DropdownMenuLabel>
-                  {memberships.map((m) => (
-                    <DropdownMenuItem key={m.org_id} onSelect={() => setOrgId(m.org_id)}>
-                      {m.organizations?.name}
-                      {m.org_id === org?.id && (
-                        <Badge variant="secondary" className="ml-2">
-                          atual
-                        </Badge>
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+            <OrgSwitcher className="hidden sm:inline-flex" />
             <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="md:hidden">
               <Search className="size-5" />
             </Button>
@@ -292,6 +270,9 @@ export function AppShell({
                 {description && (
                   <p className="mt-1 text-sm text-muted-foreground">{description}</p>
                 )}
+                <div className="mt-3">
+                  <OrgSwitcher />
+                </div>
               </div>
               {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
             </div>
