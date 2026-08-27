@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/session";
 import type { PermissionKey } from "@/lib/permissions";
+import { isAllowedEmail } from "@/lib/access";
 
 export type Organization = {
   id: string;
