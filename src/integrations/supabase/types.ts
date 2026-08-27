@@ -514,6 +514,7 @@ export type Database = {
         Returns: string[]
       }
       has_perm: { Args: { _org: string; _perm: string }; Returns: boolean }
+      is_allowed_account: { Args: never; Returns: boolean }
       is_org_member: { Args: { _org: string }; Returns: boolean }
       shares_org: { Args: { _user: string }; Returns: boolean }
     }
