@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/session";
 import type { PermissionKey } from "@/lib/permissions";
+import { isAllowedEmail } from "@/lib/access";
 
 export type Organization = {
   id: string;
@@ -92,12 +93,13 @@ export function OrgProvider({ children }: { children: ReactNode }) {
         setSelected(id);
       },
       can: (perm: PermissionKey) =>
-        !!membership &&
-        (membership.role === "admin" || (membership.permissions ?? []).includes(perm)),
+        isAllowedEmail(user?.email) ||
+        (!!membership &&
+          (membership.role === "admin" || (membership.permissions ?? []).includes(perm))),
       refetch: () => void query.refetch(),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [memberships, membership, query.isLoading],
+    [memberships, membership, query.isLoading, user?.email],
   );
 
   return <OrgContext.Provider value={value}>{children}</OrgContext.Provider>;
