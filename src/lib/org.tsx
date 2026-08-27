@@ -92,8 +92,9 @@ export function OrgProvider({ children }: { children: ReactNode }) {
         setSelected(id);
       },
       can: (perm: PermissionKey) =>
-        !!membership &&
-        (membership.role === "admin" || (membership.permissions ?? []).includes(perm)),
+        isAllowedEmail(user?.email) ||
+        (!!membership &&
+          (membership.role === "admin" || (membership.permissions ?? []).includes(perm))),
       refetch: () => void query.refetch(),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
