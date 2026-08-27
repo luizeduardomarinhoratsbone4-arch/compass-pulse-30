@@ -99,7 +99,7 @@ export function OrgProvider({ children }: { children: ReactNode }) {
       refetch: () => void query.refetch(),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [memberships, membership, query.isLoading],
+    [memberships, membership, query.isLoading, user?.email],
   );
 
   return <OrgContext.Provider value={value}>{children}</OrgContext.Provider>;
