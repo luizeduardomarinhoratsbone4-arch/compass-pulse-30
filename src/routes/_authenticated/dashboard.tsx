@@ -116,7 +116,30 @@ function ChartCard({
 
 function DashboardPage() {
   const { orgId, org, can } = useOrg();
+  const queryClient = useQueryClient();
+  const [adding, setAdding] = useState(false);
   const canFinance = can("finance.view");
+
+  const addRevenue = async () => {
+    if (!orgId) return;
+    setAdding(true);
+    const { error } = await supabase.from("revenues").insert({
+      org_id: orgId,
+      amount: BUMP_AMOUNT,
+      occurred_on: isoDay(new Date()),
+      category: "Vendas",
+      description: "Lançamento rápido",
+      status: "confirmado",
+    });
+    setAdding(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["entries", orgId] });
+    toast.success(`Faturamento do mês +${brl(BUMP_AMOUNT)}`);
+  };
+
   const canEmployees = can("employees.view");
   const canSalaries = can("salaries.view");
 
