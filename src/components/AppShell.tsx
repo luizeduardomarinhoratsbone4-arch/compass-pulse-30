@@ -13,6 +13,7 @@ import {
   Search,
   Settings,
   Shield,
+  ShieldCheck,
   Sun,
   Target,
   Users,
@@ -49,6 +50,7 @@ const NAV = [
   { to: "/relatorios", label: "Relatórios", icon: BarChart3 },
   { to: "/notificacoes", label: "Notificações", icon: Bell },
   { to: "/seguranca", label: "Segurança", icon: Shield },
+  { to: "/admin", label: "Admin", icon: ShieldCheck },
   { to: "/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
 
