@@ -212,7 +212,16 @@ function DashboardPage() {
     <AppShell
       title="Visão geral da sua empresa"
       description={`${org?.name ?? ""} · ${MONTHS_LONG[month - 1]} de ${year}`}
+      actions={
+        canFinance ? (
+          <Button onClick={() => void addRevenue()} disabled={adding}>
+            <BadgeDollarSign className="mr-2 size-4" />
+            {`+ ${brl(BUMP_AMOUNT)}`}
+          </Button>
+        ) : undefined
+      }
     >
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label="💰 Faturamento do mês"
