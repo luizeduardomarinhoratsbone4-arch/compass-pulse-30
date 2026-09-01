@@ -31,6 +31,12 @@ import {
 } from "recharts";
 
 import { AppShell } from "@/components/AppShell";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
+
 import { EmptyState, StatCard } from "@/components/StatCard";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -41,7 +47,10 @@ import {
   useGoals,
   useSalaries,
 } from "@/hooks/useFinanceData";
-import { brl, compactBrl, MONTHS_LONG, pct } from "@/lib/format";
+import { brl, compactBrl, isoDay, MONTHS_LONG, pct } from "@/lib/format";
+
+const BUMP_AMOUNT = 55349.78;
+
 import {
   CHART_COLORS,
   categoryBreakdown,
@@ -110,7 +119,30 @@ function ChartCard({
 
 function DashboardPage() {
   const { orgId, org, can } = useOrg();
+  const queryClient = useQueryClient();
+  const [adding, setAdding] = useState(false);
   const canFinance = can("finance.view");
+
+  const addRevenue = async () => {
+    if (!orgId) return;
+    setAdding(true);
+    const { error } = await supabase.from("revenues").insert({
+      org_id: orgId,
+      amount: BUMP_AMOUNT,
+      occurred_on: isoDay(new Date()),
+      category: "Vendas",
+      description: "Lançamento rápido",
+      status: "confirmado",
+    });
+    setAdding(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    await queryClient.invalidateQueries({ queryKey: ["entries", orgId] });
+    toast.success(`Faturamento do mês +${brl(BUMP_AMOUNT)}`);
+  };
+
   const canEmployees = can("employees.view");
   const canSalaries = can("salaries.view");
 
@@ -212,7 +244,16 @@ function DashboardPage() {
     <AppShell
       title="Visão geral da sua empresa"
       description={`${org?.name ?? ""} · ${MONTHS_LONG[month - 1]} de ${year}`}
+      actions={
+        canFinance ? (
+          <Button onClick={() => void addRevenue()} disabled={adding}>
+            <BadgeDollarSign className="mr-2 size-4" />
+            {`+ ${brl(BUMP_AMOUNT)}`}
+          </Button>
+        ) : undefined
+      }
     >
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label="💰 Faturamento do mês"
