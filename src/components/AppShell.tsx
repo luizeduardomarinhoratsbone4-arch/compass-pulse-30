@@ -13,6 +13,7 @@ import {
   Search,
   Settings,
   Shield,
+  ShieldCheck,
   Sun,
   Target,
   Users,
