@@ -140,8 +140,13 @@ function TeamPage() {
         employeeId = data.id;
       }
 
-      const salary = Number(form.salary.replace(",", "."));
-      if (canEditSalary && form.salary && salary !== (salaryMap.get(employeeId) ?? -1)) {
+      const salary = Number(String(form.salary).trim().replace(/\./g, "").replace(",", "."));
+      if (
+        canEditSalary &&
+        String(form.salary).trim() !== "" &&
+        Number.isFinite(salary) &&
+        salary !== (salaryMap.get(employeeId) ?? -1)
+      ) {
         const { error } = await supabase.from("employee_salaries").insert({
           org_id: orgId!,
           employee_id: employeeId,
@@ -165,7 +170,10 @@ function TeamPage() {
       void queryClient.invalidateQueries({ queryKey: ["employees", orgId] });
       void queryClient.invalidateQueries({ queryKey: ["salaries", orgId] });
     },
-    onError: () => toast.error("Não foi possível salvar o funcionário."),
+    onError: (e: unknown) =>
+      toast.error(
+        `Não foi possível salvar o funcionário: ${e instanceof Error ? e.message : "erro desconhecido"}`,
+      ),
   });
 
   const remove = async (e: Employee) => {
