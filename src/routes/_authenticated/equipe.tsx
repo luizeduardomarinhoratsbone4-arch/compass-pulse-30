@@ -170,7 +170,10 @@ function TeamPage() {
       void queryClient.invalidateQueries({ queryKey: ["employees", orgId] });
       void queryClient.invalidateQueries({ queryKey: ["salaries", orgId] });
     },
-    onError: () => toast.error("Não foi possível salvar o funcionário."),
+    onError: (e: unknown) =>
+      toast.error(
+        `Não foi possível salvar o funcionário: ${e instanceof Error ? e.message : "erro desconhecido"}`,
+      ),
   });
 
   const remove = async (e: Employee) => {
