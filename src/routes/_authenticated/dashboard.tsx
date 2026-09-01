@@ -31,6 +31,12 @@ import {
 } from "recharts";
 
 import { AppShell } from "@/components/AppShell";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
+
 import { EmptyState, StatCard } from "@/components/StatCard";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
