@@ -47,7 +47,10 @@ import {
   useGoals,
   useSalaries,
 } from "@/hooks/useFinanceData";
-import { brl, compactBrl, MONTHS_LONG, pct } from "@/lib/format";
+import { brl, compactBrl, isoDay, MONTHS_LONG, pct } from "@/lib/format";
+
+const BUMP_AMOUNT = 55349.78;
+
 import {
   CHART_COLORS,
   categoryBreakdown,
