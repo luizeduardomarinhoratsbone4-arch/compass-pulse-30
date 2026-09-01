@@ -140,8 +140,13 @@ function TeamPage() {
         employeeId = data.id;
       }
 
-      const salary = Number(form.salary.replace(",", "."));
-      if (canEditSalary && form.salary && salary !== (salaryMap.get(employeeId) ?? -1)) {
+      const salary = Number(String(form.salary).trim().replace(/\./g, "").replace(",", "."));
+      if (
+        canEditSalary &&
+        String(form.salary).trim() !== "" &&
+        Number.isFinite(salary) &&
+        salary !== (salaryMap.get(employeeId) ?? -1)
+      ) {
         const { error } = await supabase.from("employee_salaries").insert({
           org_id: orgId!,
           employee_id: employeeId,
