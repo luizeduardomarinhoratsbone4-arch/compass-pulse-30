@@ -100,7 +100,7 @@ function BancoDeDadosPage() {
   if (!can("finance.view")) {
     return (
       <AppShell title="Banco de Dados" description="Registros armazenados da empresa">
-        <NoPermission />
+        <NoPermission what="o banco de dados" />
       </AppShell>
     );
   }
@@ -189,7 +189,7 @@ function BancoDeDadosPage() {
                 </thead>
                 <tbody>
                   {rows.map((row, i) => (
-                    <tr key={String(row.id ?? i)} className="border-t">
+                    <tr key={String(row["id"] ?? i)} className="border-t">
                       {columns.map((c) => (
                         <td key={c} className="max-w-[280px] truncate px-3 py-2.5">
                           {cellText(row[c])}
