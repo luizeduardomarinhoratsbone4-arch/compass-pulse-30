@@ -34,7 +34,7 @@ import {
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
 import { useOrg } from "@/lib/org";
-import { isAllowedEmail } from "@/lib/access";
+
 import { useSession } from "@/lib/session";
 import { useTheme } from "@/lib/theme";
 import { ROLE_LABEL } from "@/lib/permissions";
