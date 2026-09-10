@@ -92,10 +92,9 @@ export function OrgProvider({ children }: { children: ReactNode }) {
         window.localStorage.setItem(STORAGE_KEY, id);
         setSelected(id);
       },
-      can: (perm: PermissionKey) =>
-        isAllowedEmail(user?.email) ||
-        (!!membership &&
-          (membership.role === "admin" || (membership.permissions ?? []).includes(perm))),
+      // Somente a conta autorizada tem acesso aos módulos. As demais contas
+      // podem entrar no site, mas veem "Acesso restrito" em tudo.
+      can: (_perm: PermissionKey) => isAllowedEmail(user?.email),
       refetch: () => void query.refetch(),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
