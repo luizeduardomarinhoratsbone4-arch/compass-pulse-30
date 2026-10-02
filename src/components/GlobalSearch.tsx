@@ -39,7 +39,7 @@ export function GlobalSearch({
           {[
             ["Dashboard", "/dashboard"],
             ["Financeiro", "/financeiro"],
-            ["Fluxo de Caixa", "/fluxo-de-caixa"],
+            ["Suporte", "/suporte"],
             ["Equipe", "/equipe"],
             ["Metas", "/metas"],
             ["Relatórios", "/relatorios"],

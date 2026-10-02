@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Support conversations are stored per organization with row-level access; the owner account can oversee all companies while other users see only tickets they created for their own organization.

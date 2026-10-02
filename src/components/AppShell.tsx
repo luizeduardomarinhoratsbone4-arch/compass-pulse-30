@@ -7,7 +7,7 @@ import {
   Database,
   ChevronsUpDown,
   LayoutDashboard,
-  LineChart,
+  LifeBuoy,
   LogOut,
   Menu,
   Moon,
@@ -45,7 +45,7 @@ import { cn } from "@/lib/utils";
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/financeiro", label: "Financeiro", icon: Wallet },
-  { to: "/fluxo-de-caixa", label: "Fluxo de Caixa", icon: LineChart },
+  { to: "/suporte", label: "Suporte", icon: LifeBuoy },
   { to: "/equipe", label: "Equipe", icon: Users },
   { to: "/metas", label: "Metas", icon: Target },
   { to: "/relatorios", label: "Relatórios", icon: BarChart3 },
