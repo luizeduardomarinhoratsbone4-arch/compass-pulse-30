@@ -28,6 +28,7 @@ import { Route as AuthenticatedNotificacoesRouteImport } from './routes/_authent
 import { Route as AuthenticatedNovaEmpresaRouteImport } from './routes/_authenticated/nova-empresa'
 import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
 import { Route as AuthenticatedSegurancaRouteImport } from './routes/_authenticated/seguranca'
+import { Route as AuthenticatedSuporteRouteImport } from './routes/_authenticated/suporte'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -128,6 +129,11 @@ const AuthenticatedSegurancaRoute = AuthenticatedSegurancaRouteImport.update({
   path: '/seguranca',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSuporteRoute = AuthenticatedSuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/seguranca': typeof AuthenticatedSegurancaRoute
+  '/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -168,6 +175,7 @@ export interface FileRoutesByTo {
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/seguranca': typeof AuthenticatedSegurancaRoute
+  '/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/_authenticated/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
   '/_authenticated/seguranca': typeof AuthenticatedSegurancaRoute
+  '/_authenticated/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/nova-empresa'
     | '/relatorios'
     | '/seguranca'
+    | '/suporte'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/nova-empresa'
     | '/relatorios'
     | '/seguranca'
+    | '/suporte'
   id:
     | '__root__'
     | '/'
@@ -253,6 +264,7 @@ export interface FileRouteTypes {
     | '/_authenticated/nova-empresa'
     | '/_authenticated/relatorios'
     | '/_authenticated/seguranca'
+    | '/_authenticated/suporte'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -400,6 +412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSegurancaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/suporte': {
+      id: '/_authenticated/suporte'
+      path: '/suporte'
+      fullPath: '/suporte'
+      preLoaderRoute: typeof AuthenticatedSuporteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -416,6 +435,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedNovaEmpresaRoute: typeof AuthenticatedNovaEmpresaRoute
   AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
   AuthenticatedSegurancaRoute: typeof AuthenticatedSegurancaRoute
+  AuthenticatedSuporteRoute: typeof AuthenticatedSuporteRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -431,6 +451,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNovaEmpresaRoute: AuthenticatedNovaEmpresaRoute,
   AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
   AuthenticatedSegurancaRoute: AuthenticatedSegurancaRoute,
+  AuthenticatedSuporteRoute: AuthenticatedSuporteRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
