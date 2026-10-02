@@ -22,12 +22,12 @@ import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authen
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
 import { Route as AuthenticatedFinanceiroRouteImport } from './routes/_authenticated/financeiro'
-import { Route as AuthenticatedFluxoDeCaixaRouteImport } from './routes/_authenticated/fluxo-de-caixa'
 import { Route as AuthenticatedMetasRouteImport } from './routes/_authenticated/metas'
 import { Route as AuthenticatedNotificacoesRouteImport } from './routes/_authenticated/notificacoes'
 import { Route as AuthenticatedNovaEmpresaRouteImport } from './routes/_authenticated/nova-empresa'
 import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
 import { Route as AuthenticatedSegurancaRouteImport } from './routes/_authenticated/seguranca'
+import { Route as AuthenticatedSuporteRouteImport } from './routes/_authenticated/suporte'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -95,12 +95,6 @@ const AuthenticatedFinanceiroRoute = AuthenticatedFinanceiroRouteImport.update({
   path: '/financeiro',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedFluxoDeCaixaRoute =
-  AuthenticatedFluxoDeCaixaRouteImport.update({
-    id: '/fluxo-de-caixa',
-    path: '/fluxo-de-caixa',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedMetasRoute = AuthenticatedMetasRouteImport.update({
   id: '/metas',
   path: '/metas',
@@ -128,6 +122,11 @@ const AuthenticatedSegurancaRoute = AuthenticatedSegurancaRouteImport.update({
   path: '/seguranca',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSuporteRoute = AuthenticatedSuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -142,12 +141,12 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/equipe': typeof AuthenticatedEquipeRoute
   '/financeiro': typeof AuthenticatedFinanceiroRoute
-  '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/metas': typeof AuthenticatedMetasRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/seguranca': typeof AuthenticatedSegurancaRoute
+  '/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -162,12 +161,12 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/equipe': typeof AuthenticatedEquipeRoute
   '/financeiro': typeof AuthenticatedFinanceiroRoute
-  '/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/metas': typeof AuthenticatedMetasRoute
   '/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/seguranca': typeof AuthenticatedSegurancaRoute
+  '/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -184,12 +183,12 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
   '/_authenticated/financeiro': typeof AuthenticatedFinanceiroRoute
-  '/_authenticated/fluxo-de-caixa': typeof AuthenticatedFluxoDeCaixaRoute
   '/_authenticated/metas': typeof AuthenticatedMetasRoute
   '/_authenticated/notificacoes': typeof AuthenticatedNotificacoesRoute
   '/_authenticated/nova-empresa': typeof AuthenticatedNovaEmpresaRoute
   '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
   '/_authenticated/seguranca': typeof AuthenticatedSegurancaRoute
+  '/_authenticated/suporte': typeof AuthenticatedSuporteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -206,12 +205,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/equipe'
     | '/financeiro'
-    | '/fluxo-de-caixa'
     | '/metas'
     | '/notificacoes'
     | '/nova-empresa'
     | '/relatorios'
     | '/seguranca'
+    | '/suporte'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -226,12 +225,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/equipe'
     | '/financeiro'
-    | '/fluxo-de-caixa'
     | '/metas'
     | '/notificacoes'
     | '/nova-empresa'
     | '/relatorios'
     | '/seguranca'
+    | '/suporte'
   id:
     | '__root__'
     | '/'
@@ -247,12 +246,12 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/equipe'
     | '/_authenticated/financeiro'
-    | '/_authenticated/fluxo-de-caixa'
     | '/_authenticated/metas'
     | '/_authenticated/notificacoes'
     | '/_authenticated/nova-empresa'
     | '/_authenticated/relatorios'
     | '/_authenticated/seguranca'
+    | '/_authenticated/suporte'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -358,13 +357,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceiroRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/fluxo-de-caixa': {
-      id: '/_authenticated/fluxo-de-caixa'
-      path: '/fluxo-de-caixa'
-      fullPath: '/fluxo-de-caixa'
-      preLoaderRoute: typeof AuthenticatedFluxoDeCaixaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/metas': {
       id: '/_authenticated/metas'
       path: '/metas'
@@ -400,6 +392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSegurancaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/suporte': {
+      id: '/_authenticated/suporte'
+      path: '/suporte'
+      fullPath: '/suporte'
+      preLoaderRoute: typeof AuthenticatedSuporteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -410,12 +409,12 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
   AuthenticatedFinanceiroRoute: typeof AuthenticatedFinanceiroRoute
-  AuthenticatedFluxoDeCaixaRoute: typeof AuthenticatedFluxoDeCaixaRoute
   AuthenticatedMetasRoute: typeof AuthenticatedMetasRoute
   AuthenticatedNotificacoesRoute: typeof AuthenticatedNotificacoesRoute
   AuthenticatedNovaEmpresaRoute: typeof AuthenticatedNovaEmpresaRoute
   AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
   AuthenticatedSegurancaRoute: typeof AuthenticatedSegurancaRoute
+  AuthenticatedSuporteRoute: typeof AuthenticatedSuporteRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -425,12 +424,12 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
   AuthenticatedFinanceiroRoute: AuthenticatedFinanceiroRoute,
-  AuthenticatedFluxoDeCaixaRoute: AuthenticatedFluxoDeCaixaRoute,
   AuthenticatedMetasRoute: AuthenticatedMetasRoute,
   AuthenticatedNotificacoesRoute: AuthenticatedNotificacoesRoute,
   AuthenticatedNovaEmpresaRoute: AuthenticatedNovaEmpresaRoute,
   AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
   AuthenticatedSegurancaRoute: AuthenticatedSegurancaRoute,
+  AuthenticatedSuporteRoute: AuthenticatedSuporteRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

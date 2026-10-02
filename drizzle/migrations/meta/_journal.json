@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790941496382,
+      "tag": "0000_create_support_center",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790941520474,
+      "tag": "0001_add_support_ticket_submission",
+      "breakpoints": true
+    }
+  ]
+}
