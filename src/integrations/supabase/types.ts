@@ -593,6 +593,16 @@ export type Database = {
       is_allowed_account: { Args: never; Returns: boolean }
       is_org_member: { Args: { _org: string }; Returns: boolean }
       shares_org: { Args: { _user: string }; Returns: boolean }
+      submit_support_ticket: {
+        Args: {
+          _category: string
+          _message: string
+          _org_id: string
+          _priority: string
+          _subject: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "financeiro" | "rh" | "colaborador"
