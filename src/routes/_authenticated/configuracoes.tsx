@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Trash2, UserPlus } from "lucide-react";
+import { KeyRound, Lock, Trash2, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -74,6 +74,8 @@ function SettingsPage() {
   });
   const [idle, setIdle] = useState("30");
   const [invite, setInvite] = useState({ email: "", role: "colaborador" });
+  const [pwd, setPwd] = useState({ atual: "", nova: "", confirma: "" });
+  const [changingPwd, setChangingPwd] = useState(false);
 
   useEffect(() => {
     if (org)
