@@ -163,6 +163,38 @@ function SettingsPage() {
 
   const set = (k: keyof typeof orgForm, v: string) => setOrgForm((f) => ({ ...f, [k]: v }));
 
+  const changePassword = async () => {
+    if (!user?.email) return;
+    if (pwd.nova.length < 8) {
+      toast.error("A nova senha precisa ter ao menos 8 caracteres.");
+      return;
+    }
+    if (pwd.nova !== pwd.confirma) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+    setChangingPwd(true);
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: pwd.atual,
+      });
+      if (authError) {
+        toast.error("A senha atual está incorreta.");
+        return;
+      }
+      const { error } = await supabase.auth.updateUser({ password: pwd.nova });
+      if (error) {
+        toast.error("Não foi possível alterar a senha. Tente novamente.");
+        return;
+      }
+      toast.success("Senha alterada com sucesso.");
+      setPwd({ atual: "", nova: "", confirma: "" });
+    } finally {
+      setChangingPwd(false);
+    }
+  };
+
   return (
     <AppShell title="Configurações" description="Empresa, usuários e preferências de sessão.">
       <div className="grid gap-4 xl:grid-cols-2">
