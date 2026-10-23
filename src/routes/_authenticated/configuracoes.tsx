@@ -287,6 +287,56 @@ function SettingsPage() {
               </Select>
             </div>
           </div>
+
+          <div className="mt-6 border-t border-border pt-5">
+            <div className="flex items-center gap-2">
+              <KeyRound className="size-4 text-muted-foreground" />
+              <h4 className="font-display text-sm font-semibold">Alterar senha</h4>
+            </div>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Essa senha protege sua conta e o acesso ao painel de administração.
+            </p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="senha-atual">Senha atual</Label>
+                <Input
+                  id="senha-atual"
+                  type="password"
+                  autoComplete="current-password"
+                  value={pwd.atual}
+                  onChange={(e) => setPwd((p) => ({ ...p, atual: e.target.value }))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="senha-nova">Nova senha</Label>
+                <Input
+                  id="senha-nova"
+                  type="password"
+                  autoComplete="new-password"
+                  value={pwd.nova}
+                  onChange={(e) => setPwd((p) => ({ ...p, nova: e.target.value }))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="senha-confirma">Confirmar nova senha</Label>
+                <Input
+                  id="senha-confirma"
+                  type="password"
+                  autoComplete="new-password"
+                  value={pwd.confirma}
+                  onChange={(e) => setPwd((p) => ({ ...p, confirma: e.target.value }))}
+                />
+              </div>
+            </div>
+            <Button
+              className="mt-4"
+              onClick={() => void changePassword()}
+              disabled={changingPwd || !pwd.atual || pwd.nova.length < 8 || !pwd.confirma}
+            >
+              <Lock className="mr-2 size-4" />
+              {changingPwd ? "Alterando…" : "Salvar nova senha"}
+            </Button>
+          </div>
         </div>
       </div>
 
