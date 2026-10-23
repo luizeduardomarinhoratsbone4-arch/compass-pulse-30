@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Trash2, UserPlus } from "lucide-react";
+import { KeyRound, Lock, Trash2, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -74,6 +74,8 @@ function SettingsPage() {
   });
   const [idle, setIdle] = useState("30");
   const [invite, setInvite] = useState({ email: "", role: "colaborador" });
+  const [pwd, setPwd] = useState({ atual: "", nova: "", confirma: "" });
+  const [changingPwd, setChangingPwd] = useState(false);
 
   useEffect(() => {
     if (org)
@@ -160,6 +162,38 @@ function SettingsPage() {
   };
 
   const set = (k: keyof typeof orgForm, v: string) => setOrgForm((f) => ({ ...f, [k]: v }));
+
+  const changePassword = async () => {
+    if (!user?.email) return;
+    if (pwd.nova.length < 8) {
+      toast.error("A nova senha precisa ter ao menos 8 caracteres.");
+      return;
+    }
+    if (pwd.nova !== pwd.confirma) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+    setChangingPwd(true);
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: pwd.atual,
+      });
+      if (authError) {
+        toast.error("A senha atual está incorreta.");
+        return;
+      }
+      const { error } = await supabase.auth.updateUser({ password: pwd.nova });
+      if (error) {
+        toast.error("Não foi possível alterar a senha. Tente novamente.");
+        return;
+      }
+      toast.success("Senha alterada com sucesso.");
+      setPwd({ atual: "", nova: "", confirma: "" });
+    } finally {
+      setChangingPwd(false);
+    }
+  };
 
   return (
     <AppShell title="Configurações" description="Empresa, usuários e preferências de sessão.">
@@ -252,6 +286,56 @@ function SettingsPage() {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          <div className="mt-6 border-t border-border pt-5">
+            <div className="flex items-center gap-2">
+              <KeyRound className="size-4 text-muted-foreground" />
+              <h4 className="font-display text-sm font-semibold">Alterar senha</h4>
+            </div>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Essa senha protege sua conta e o acesso ao painel de administração.
+            </p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="senha-atual">Senha atual</Label>
+                <Input
+                  id="senha-atual"
+                  type="password"
+                  autoComplete="current-password"
+                  value={pwd.atual}
+                  onChange={(e) => setPwd((p) => ({ ...p, atual: e.target.value }))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="senha-nova">Nova senha</Label>
+                <Input
+                  id="senha-nova"
+                  type="password"
+                  autoComplete="new-password"
+                  value={pwd.nova}
+                  onChange={(e) => setPwd((p) => ({ ...p, nova: e.target.value }))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="senha-confirma">Confirmar nova senha</Label>
+                <Input
+                  id="senha-confirma"
+                  type="password"
+                  autoComplete="new-password"
+                  value={pwd.confirma}
+                  onChange={(e) => setPwd((p) => ({ ...p, confirma: e.target.value }))}
+                />
+              </div>
+            </div>
+            <Button
+              className="mt-4"
+              onClick={() => void changePassword()}
+              disabled={changingPwd || !pwd.atual || pwd.nova.length < 8 || !pwd.confirma}
+            >
+              <Lock className="mr-2 size-4" />
+              {changingPwd ? "Alterando…" : "Salvar nova senha"}
+            </Button>
           </div>
         </div>
       </div>
